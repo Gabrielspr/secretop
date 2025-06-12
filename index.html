@@ -1,0 +1,206 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Dia dos Namorados, Anaiza! 🐾💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #ffe4e1, #f8c6d4);
+      color: #4b2e39;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      font-size: 3em;
+      color: #d84b6e;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    p {
+      font-size: 1.3em;
+      line-height: 1.7;
+      margin: 20px 0;
+    }
+    .heart {
+      color: #ff6b81;
+      font-size: 1.5em;
+    }
+    .poem {
+      font-style: italic;
+      font-size: 1.2em;
+      color: #6b4e5a;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(255, 245, 247, 0.7);
+      border-left: 4px solid #d84b6e;
+    }
+    .cat {
+      position: absolute;
+      width: 60px;
+      animation: float 4s ease-in-out infinite;
+    }
+    .cat1 { left: 10%; top: 15%; }
+    .cat2 { right: 12%; top: 45%; }
+    .cat3 { left: 15%; top: 75%; }
+    .cat4 { right: 18%; top: 25%; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+    .siggy {
+      font-style: italic;
+      color: #6b4e5a;
+      margin-top: 40px;
+      font-size: 1.2em;
+    }
+    .footer {
+      margin-top: 50px;
+      font-size: 1.1em;
+      color: #8b5a6b;
+    }
+    .cross {
+      font-size: 1.5em;
+      vertical-align: middle;
+    }
+    .highlight {
+      color: #d84b6e;
+      font-weight: bold;
+    }
+    .audio-controls {
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+    .audio-controls button {
+      padding: 10px 20px;
+      background: #d84b6e;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+      margin: 0 10px;
+    }
+    .audio-controls button:hover {
+      background: #ff6b81;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Feliz Dia dos Namorados, Anaiza, meu amor eterno! 🐾💖</h1>
+    <div class="audio-controls">
+      <p>Uma musiquinha especial pra nós dois! 🎶</p>
+      <button onclick="toggleMusic()">Tocar/Ativar Som</button>
+      <button onclick="pauseMusic()">Pausar</button>
+      <audio id="bgMusic" autoplay loop muted>
+        <source src="background_music.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+    </div>
+    <p>Minha Anaiza, minha lua, meu sol, meu tudo, hoje é um dia para celebrar o amor mais lindo que já conheci — o nosso. Parece que foi ontem que nossos caminhos se cruzaram naquele aplicativo, o MEEFF, em 2023. Lembro do frio na barriga ao ver sua foto, da ansiedade gostosa esperando sua resposta, e de como, desde o primeiro "oi", soube que você era especial. Quase dois anos depois, aqui estamos, mais fortes, mais apaixonados, e com um laço que nem a distância pode desfazer.</p>
+    <p>Você é minha gatinha favorita <span class="heart">♥</span>, minha rainha, minha confidente. Mesmo namorando à distância por quase dois anos, nunca me senti tão próximo de alguém. Cada mensagem sua, cada ligação cheia de risadas, cada "eu te amo" sussurrado antes de dormir faz meu coração transbordar. Amo cuidar de você, estar presente nos dias bons e nos difíceis, e dividir momentos que ficam gravados na alma — como nossas noites jogando <span class="highlight">Stardew Valley</span> e <span class="highlight">Dead by Daylight</span>, as conversas longas sobre nossos sonhos, e até os silêncios confortáveis que dizem tanto.</p>
+    <p>Ver você crescer e conquistar seus sonhos, como sua formatura no ensino médio, me enche de orgulho. Você é tão forte, tão determinada, e agora, prestes a começar uma nova jornada em São Paulo, sei que vai brilhar ainda mais. Mal posso esperar para te visitar, caminhar de mãos dadas pelas ruas da cidade, tomar café em uma manhã tranquila, e te abraçar bem apertado, sentindo aquele cheirinho que só você tem. Cada dia longe é uma contagem regressiva para esses momentos, e cada conversa é um lembrete de que nosso amor é maior que qualquer distância.</p>
+    <div class="poem">
+      Tuas pintinhas, estrelas no céu da minha vida,<br>
+      Mapa de constelações, beleza tão sentida.<br>
+      És minha lua, que guia na noite escura,<br>
+      Meu sol radiante, que aquece com ternura.<br>
+      Eu, teu girassol, sigo-te onde estiver,<br>
+      Pois contigo, meu amor, só quero viver.<br>
+    </div>
+    <p>E, meu amor, há algo que sempre estará em nossos corações: a saudade do nosso pequeno <span class="highlight">Siegfried</span>. Nosso anjinho de patinhas, nosso gatinho tão amado, que trouxe tanta alegria e amor às nossas vidas. Mesmo tão longe, sinto ele ronronando lá em cima, cuidando de nós com aquele jeitinho único. 🐈‍⬛✝️ Ele sempre será parte da nossa história, um pedacinho do nosso amor que brilha no céu.</p>
+    <p>Anaiza, você é meu bem maior, minha escolha em todas as vidas. Quero ser seu apoio, seu companheiro, seu eterno girassol, girando sempre em sua direção. Que nosso amor continue crescendo, como uma planta que regamos com carinho todos os dias, florescendo em momentos simples e grandiosos. Te amo mais do que as palavras podem expressar, e mal posso esperar por tudo que o futuro nos reserva — mais risadas, mais aventuras, mais “nós dois” contra o mundo.</p>
+    <p class="siggy">Com todo meu coração, prometo te amar hoje, amanhã e sempre. Feliz Dia dos Namorados, minha princesa, minha dama da noite, meu amor eterno. 💞</p>
+    <div class="footer">
+      Com todo meu amor, <br> Seu Gabriel, 03.06.25 ✝️🐾
+    </div>
+  </div>
+  <img src="https://img.icons8.com/emoji/60/000000/cat-emoji.png" class="cat cat1" alt="Gatinho 1">
+  <img src="https://img.icons8.com/emoji/60/000000/cat-emoji.png" class="cat cat2" alt="Gatinho 2">
+  <img src="https://img.icons8.com/emoji/60/000000/cat-emoji.png" class="cat cat3" alt="Gatinho 3">
+  <img src="https://img.icons8.com/emoji/60/000000/cat-emoji.png" class="cat cat4" alt="Gatinho 4">
+  <script>
+    function toggleMusic() {
+      var music = document.getElementById("bgMusic");
+      if (music.muted) {
+        music.muted = false;
+        music.play().catch(function(error) {
+          console.log("Erro ao tentar tocar a música: ", error);
+        });
+      } else if (music.paused) {
+        music.play().catch(function(error) {
+          console.log("Erro ao tentar tocar a música: ", error);
+        });
+      } else {
+        music.muted = true;
+      }
+    }
+    function pauseMusic() {
+      var music = document.getElementById("bgMusic");
+      music.pause();
+    }
+    // Tenta desmutar após interação inicial
+    document.addEventListener("click", function() {
+      var music = document.getElementById("bgMusic");
+      if (music.muted) {
+        music.muted = false;
+        music.play().catch(function(error) {
+          console.log("Erro ao tentar desmutar: ", error);
+        });
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>
